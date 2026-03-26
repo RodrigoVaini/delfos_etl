@@ -1,0 +1,69 @@
+version: '3.9'
+
+services:
+
+  db_source:
+    image: postgres:16
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${SOURCE_DB_NAME}
+      POSTGRES_USER: ${SOURCE_DB_USER}
+      POSTGRES_PASSWORD: ${SOURCE_DB_PASSWORD}
+    ports:
+      - "5433:5432"
+
+  db_target:
+    image: postgres:16
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${TARGET_DB_NAME}
+      POSTGRES_USER: ${TARGET_DB_USER}
+      POSTGRES_PASSWORD: ${TARGET_DB_PASSWORD}
+    ports:
+      - "5434:5432"
+
+  api:
+    build: ./api
+    env_file:
+      - .env
+    depends_on:
+      - db_source
+    ports:
+      - "8000:8000"
+
+  dagster:
+    build: ./dagster
+    container_name: delfos_dagster
+    env_file:
+      - .env
+    environment:
+      DAGSTER_HOME: /opt/dagster/dagster_home
+    volumes:
+      - dagster_home:/opt/dagster/dagster_home
+    depends_on:
+      - api
+      - db_target
+    ports:
+      - "3000:3000"
+
+  dagster_daemon:
+    build: ./dagster
+    container_name: delfos_dagster_daemon
+    env_file:
+      - .env
+    environment:
+      DAGSTER_HOME: /opt/dagster/dagster_home
+    volumes:
+      - dagster_home:/opt/dagster/dagster_home
+    command: ["dagster-daemon", "run"]
+    depends_on:
+      - dagster
+      - api
+      - db_target
+
+volumes:
+  db_source_data:
+  db_target_data:
+  dagster_home:

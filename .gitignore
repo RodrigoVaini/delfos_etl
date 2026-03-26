@@ -1,0 +1,33 @@
+# PYTHON
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuição / build
+build/
+dist/
+*.egg-info/
+
+# Ambientes virtuais
+venv/
+env/
+.venv/
+
+# LOGS
+*.log
+logs/
+
+# ENV / SEGURANÇA
+.env
+
+# VSCode
+.vscode/
+
+# DAGSTER
+dagster_home/
+.dagster/
+
+# OUTROS
+*.csv
+*.xlsx
+*.parquet
