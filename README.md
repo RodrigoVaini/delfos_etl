@@ -1,6 +1,6 @@
-# 🚀 Delfos ETL Pipeline (Teste Técnico)
+# 🚀 Delfos ETL Pipeline
 
-Este projeto implementa um pipeline completo de ETL conforme especificação do teste técnico, envolvendo:
+Este projeto implementa um pipeline completo de ETL conforme especificação do documento técnico, envolvendo:
 
 * Banco de dados **Fonte (PostgreSQL)**
 * API **FastAPI** para exposição dos dados
@@ -83,7 +83,7 @@ API_BASE_URL=
 ## 1. Subir os containers
 
 ```
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ---
@@ -95,7 +95,7 @@ python3 scripts/init_target_db.py
 python3 scripts/seed_source_db.py
 ```
 
-Gera dados com frequência de **1 minuto por 10 dias**, conforme solicitado no teste.
+Gera dados com frequência de **1 minuto por 10 dias**, conforme solicitado no documento.
 
 ---
 
@@ -225,6 +225,6 @@ Rodrigo Vaini de Freitas
 
 * O projeto pode ser executado integralmente via Docker
 * Não há dependências externas além dos containers
-* Os dados são simulados conforme especificação do teste
+* Os dados são simulados conforme especificação do documento
 
 ---
