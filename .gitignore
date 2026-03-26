@@ -19,6 +19,7 @@ logs/
 
 # ENV / SEGURANÇA
 .env
+.env.local
 
 # VSCode
 .vscode/
